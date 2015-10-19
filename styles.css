@@ -33,7 +33,7 @@ div.row_wrapper div { /* total width 104 */
 	height: 80px;
 	border: 2px solid #3DBAE3;
 	float: left;
-	background-color: black;
+	background-color: #14207A;
 }
 
 
@@ -66,23 +66,15 @@ canvas.xbruttino {
 	left: 600px;
 }
 
-input[type="button"] {
-	border-radius:6px;
-	border:1px solid grey;
-	color: blue;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	position: absolute;
-}
+
 
 #reset {
 	top: 590px;
 	left: 0px;
 	padding:6px 40px 6px 40px;
-}
-
-#undo {
-	top: 590px;
-	left: 180px;
+	color: black;
+	font-size: 14px;
+	border-radius: 5px;
+	background-color: silver;
+	font-weight: bold;
 }

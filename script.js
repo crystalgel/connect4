@@ -25,13 +25,11 @@ $(document).ready(function() {
 		}
 
 		if (image) {
-			//circle.arc(40, 40, 39.5, 0, 2 * Math.PI, false);
 			var img = new Image();
 			img.onload = function() {
 				circle.drawImage(this, -20, -45);
 
 			}
-			//carina.src = color === "red" ? "carina.png" : "xbruttino.png";
 			img.src= image
 		}
 	}
@@ -48,23 +46,26 @@ $(document).ready(function() {
 //going to loop backwards, subtracting 7 each time. It's looping backwards.
 //We iterate backwards and minus 7 each time.
 		for (i = column_dropped_on + 35; i >= column_dropped_on; i -= 7) {
-			var iterated_square = $('#' + i); //this is document.getElementByID in jQuery. We are getting a hold of that div it was dropped on.
-			var iterated_square_num = iterated_square.attr('id'); //this is an object. It's returning the div. We are getting the number (the divs ID).
+			var dropped_square = $('#' + i); //this is document.getElementByID in jQuery. We are getting a hold of that div it was dropped on.
+			var dropped_square_num = dropped_square.attr('id'); //this is an object. It's returning the div. We are getting the number (the divs ID).
 
-//If the iterated square has the class of 'can_place'(this will be true), we return the array back which includes the distance from top to 6 (how far it has to go down), and the iterated square number.
-			if (iterated_square.hasClass('can_place')) {
-				if (iterated_square_num > 35) {
-					return ['503px', iterated_square_num];
-				} else if (iterated_square_num > 28) {
-					return ['419px', iterated_square_num];
-				} else if (iterated_square_num > 21) {
-					return ['335px', iterated_square_num];
-				} else if (iterated_square_num > 14) {
-					return ['251px', iterated_square_num];
-				} else if (iterated_square_num > 7) {
-					return ['167px', iterated_square_num];
+			//If the dropped_square square has the class of 'can_place'
+			//(this will be true), we return the array back which includes the
+			//distance from top to 6 (how far it has to go down), and the
+			//dropped_square square number.
+			if (dropped_square.hasClass('can_place')) {
+				if (dropped_square_num > 35) {
+					return ['503px', dropped_square_num];
+				} else if (dropped_square_num > 28) {
+					return ['419px', dropped_square_num];
+				} else if (dropped_square_num > 21) {
+					return ['335px', dropped_square_num];
+				} else if (dropped_square_num > 14) {
+					return ['251px', dropped_square_num];
+				} else if (dropped_square_num > 7) {
+					return ['167px', dropped_square_num];
 				} else {
-					return ['83px', iterated_square_num];
+					return ['83px', dropped_square_num];
 				}
 			}
 		}
@@ -130,9 +131,9 @@ $(document).ready(function() {
 		//check from top left to bottom right first
 		while ((square > 8 && square < 43)) { // get squares left of current one
 			var square = square - 8;
-			var iterated_square = $('#' + (square));
-			var id = parseInt(iterated_square.attr('id'));
-			if  (iterated_square.hasClass(color)) {
+			var dropped_square = $('#' + (square));
+			var id = parseInt(dropped_square.attr('id'));
+			if  (dropped_square.hasClass(color)) {
 				top_left_bottom_right.push(id);
 			}
 		}
@@ -141,9 +142,9 @@ $(document).ready(function() {
 
 		while ((square > 0 && square < 35) && $('#' + square).hasClass(color)) { // get squares right of current one
 			var square = square + 8;
-			var iterated_square = $('#' + (square));
-			var id = parseInt(iterated_square.attr('id'));
-			if  (iterated_square.hasClass(color)) {
+			var dropped_square = $('#' + (square));
+			var id = parseInt(dropped_square.attr('id'));
+			if  (dropped_square.hasClass(color)) {
 				top_left_bottom_right.push(id);
 			}
 		}
@@ -164,9 +165,9 @@ $(document).ready(function() {
 
 		while ((square > 7 && square < 43)) { // get squares right of current one
 			var square = square - 6;
-			var iterated_square = $('#' + (square));
-			var id = parseInt(iterated_square.attr('id'));
-			if  (iterated_square.hasClass(color)) {
+			var dropped_square = $('#' + (square));
+			var id = parseInt(dropped_square.attr('id'));
+			if  (dropped_square.hasClass(color)) {
 				bottom_left_top_right.push(id);
 			}
 		}
@@ -175,9 +176,9 @@ $(document).ready(function() {
 
 		while ((square > 0 && square < 35) && $('#' + square).hasClass(color)) { // get squares left of current one
 			var square = square + 6;
-			var iterated_square = $('#' + (square));
-			var id = parseInt(iterated_square.attr('id'));
-			if  (iterated_square.hasClass(color)) {
+			var dropped_square = $('#' + (square));
+			var id = parseInt(dropped_square.attr('id'));
+			if  (dropped_square.hasClass(color)) {
 				bottom_left_top_right.push(id);
 			}
 		}
@@ -198,25 +199,13 @@ $(document).ready(function() {
 	function winner(color) {
 
 		if (color == 'carina') {
-			var letters = ['CARINA WINS!'];
-			console.log('carina wins');
+			alert("Carina Wins!");
+
 		} else {
-			var letters = ['B','R','U','T','T','I','N','N','O',' ','W','I','N','S','!'];
-			console.log('bruttino wins')
+			alert("Bruttino Wins!");
 		}
-		var tiles = [9, 10, 11, 12, 13, 23, 24, 25, 26, 27];
 
-		setTimeout(function() {
-
-			$('canvas').css('visibility','hidden');
-			$('.drop_spot').css('background-color','white');
-
-			for (i = 0; i < 10; i++) {
-				$('#' + tiles[i]).html('<h1>' + letters[i] + '</h1>');
-			}
-		}, 500);
-
-		setTimeout(function() { window.location = document.URL; }, 5000);
+		setTimeout(function() { window.location = document.URL; }, 3000);
 	}
 
 	$('.draggable').draggable({
@@ -262,11 +251,7 @@ $(document).ready(function() {
 //animations.
 				$(ui.draggable).animate(
 					{ top:distance });
-					//300,
-					//'linear',
-					//function() {
-					//}
-				//);
+
 
 //Removing class of 'can_place' and adding "cannot_place". Adding "can_place to square above it"
 				$('#' + square_to_land_on).removeClass('can_place').addClass('cannot_place ' + current_color);
